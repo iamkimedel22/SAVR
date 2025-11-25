@@ -14,18 +14,24 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ message: "Invalid token" }, { status: 401 })
     }
 
-    const categories = await executeQuery("SELECT id, name FROM categories WHERE user_id = ? OR user_id IS NULL", [
-      decoded.userId,
-    ])
-
-    return NextResponse.json(
-      Array.isArray(categories)
-        ? categories.map((c: any) => ({
-            id: c.id,
-            name: c.name,
-          }))
-        : [],
+    const categories = await executeQuery(
+      "SELECT id, name, user_id FROM categories WHERE user_id = ? OR user_id IS NULL ORDER BY name",
+      [decoded.userId],
     )
+
+    const mapped = Array.isArray(categories)
+      ? categories.reduce((acc: any[], row: any) => {
+          const existingIndex = acc.findIndex((r) => r.name === row.name)
+          if (existingIndex === -1) acc.push(row)
+          else if (acc[existingIndex].user_id === null && row.user_id !== null) {
+            // prefer user specific category
+            acc[existingIndex] = row
+          }
+          return acc
+        }, [])
+      : []
+
+    return NextResponse.json(mapped)
   } catch (error) {
     console.error("Get categories error:", error)
     return NextResponse.json({ message: "Server error" }, { status: 500 })

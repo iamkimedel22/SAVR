@@ -47,11 +47,15 @@ export async function POST(request: NextRequest) {
     ]
 
     for (const category of defaultCategories) {
-      await executeQuery("INSERT INTO categories (user_id, name, color) VALUES (?, ?, ?)", [
-        userId,
-        category.name,
-        category.color,
-      ])
+      // Only insert category if it isn't already present for this user
+      const exists = await executeQuery("SELECT id FROM categories WHERE user_id = ? AND name = ?", [userId, category.name])
+      if (!Array.isArray(exists) || exists.length === 0) {
+        await executeQuery("INSERT INTO categories (user_id, name, color) VALUES (?, ?, ?)", [
+          userId,
+          category.name,
+          category.color,
+        ])
+      }
     }
 
     // Generate JWT token

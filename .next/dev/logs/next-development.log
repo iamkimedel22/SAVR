@@ -1,20 +1,8 @@
-[00:00:00.684] Server  LOG      ✓ Ready in 424ms
-[00:00:03.856] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:11.920] Server  LOG        Reload env: .env.local
-[00:01:19.105] Server  LOG        Reload env: .env.local
-[00:02:25.882] Server  LOG        Reload env: .env.local
-[00:07:17.246] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:08:48.139] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:11:32.686] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'map')
-[00:12:11.988] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:14:18.044] Browser ERROR   uncaughtError: TypeError: Cannot read properties of undefined (reading 'toFixed')
-[00:14:42.675] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:16:35.987] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:17:35.683] Server  LOG      ✓ Compiled in 44ms
-[00:17:46.582] Server  LOG      ✓ Compiled in 48ms
-[00:19:51.223] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:20:12.678] Server  LOG      ✓ Compiled in 56ms
-[00:22:01.685] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:22:46.072] Server  LOG      ✓ Compiled in 45ms
-[00:23:38.903] Server  LOG      ✓ Compiled in 40ms
-[00:30:36.072] Server  LOG      ✓ Compiled in 36ms
+[00:00:00.712] Server  LOG      ✓ Ready in 469ms
+[00:00:04.346] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:08:25.033] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:31.184] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:19:30.861] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:20:56.897] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:27:02.722] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:28:08.602] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

@@ -129,6 +129,7 @@ const pool = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$mys
     user: process.env.MYSQL_USER || "root",
     password: process.env.MYSQL_PASSWORD || "",
     database: process.env.MYSQL_DATABASE || "savr",
+    port: Number(process.env.MYSQL_PORT || 3306),
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -235,11 +236,18 @@ async function POST(request) {
             }
         ];
         for (const category of defaultCategories){
-            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["executeQuery"])("INSERT INTO categories (user_id, name, color) VALUES (?, ?, ?)", [
+            // Only insert category if it isn't already present for this user
+            const exists = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["executeQuery"])("SELECT id FROM categories WHERE user_id = ? AND name = ?", [
                 userId,
-                category.name,
-                category.color
+                category.name
             ]);
+            if (!Array.isArray(exists) || exists.length === 0) {
+                await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["executeQuery"])("INSERT INTO categories (user_id, name, color) VALUES (?, ?, ?)", [
+                    userId,
+                    category.name,
+                    category.color
+                ]);
+            }
         }
         // Generate JWT token
         const token = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$jsonwebtoken$2f$index$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].sign({

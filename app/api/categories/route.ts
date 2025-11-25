@@ -21,7 +21,20 @@ export async function GET(request: NextRequest) {
       [userId],
     )
 
-    return NextResponse.json(categories)
+    // Deduplicate categories by name, preferring user-specific categories over global ones
+    const mapped = Array.isArray(categories)
+      ? categories.reduce((acc: any[], row: any) => {
+          const existing = acc.find((r) => r.name === row.name)
+          if (!existing) acc.push(row)
+          else if (existing.user_id === null && row.user_id !== null) {
+            // prefer user-specific version
+            acc[acc.indexOf(existing)] = row
+          }
+          return acc
+        }, [])
+      : []
+
+    return NextResponse.json(mapped)
   } catch (error) {
     console.error("[v0] Get categories error:", error)
     return NextResponse.json({ message: "Internal server error" }, { status: 500 })

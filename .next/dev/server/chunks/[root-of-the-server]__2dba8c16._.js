@@ -218,7 +218,17 @@ async function GET(request) {
         const categories = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["executeQuery"])("SELECT * FROM categories WHERE user_id = ? OR user_id IS NULL ORDER BY name", [
             userId
         ]);
-        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(categories);
+        // Deduplicate categories by name, preferring user-specific categories over global ones
+        const mapped = Array.isArray(categories) ? categories.reduce((acc, row)=>{
+            const existing = acc.find((r)=>r.name === row.name);
+            if (!existing) acc.push(row);
+            else if (existing.user_id === null && row.user_id !== null) {
+                // prefer user-specific version
+                acc[acc.indexOf(existing)] = row;
+            }
+            return acc;
+        }, []) : [];
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(mapped);
     } catch (error) {
         console.error("[v0] Get categories error:", error);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({

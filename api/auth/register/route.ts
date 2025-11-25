@@ -36,7 +36,11 @@ export async function POST(request: NextRequest) {
     // Create default categories
     const defaultCategories = ["Food", "Transport", "Bills", "Entertainment", "Other"]
     for (const category of defaultCategories) {
-      await executeQuery("INSERT INTO categories (user_id, name) VALUES (?, ?)", [userId, category])
+      // Only insert category if it isn't already present for this user
+      const exists = await executeQuery("SELECT id FROM categories WHERE user_id = ? AND name = ?", [userId, category])
+      if (!Array.isArray(exists) || exists.length === 0) {
+        await executeQuery("INSERT INTO categories (user_id, name) VALUES (?, ?)", [userId, category])
+      }
     }
 
     const token = generateToken(userId)
