@@ -161,6 +161,12 @@
       "regex": "^/transactions(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/transactions(?:/)?$"
+    },
+    {
+      "page": "/welcome",
+      "regex": "^/welcome(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/welcome(?:/)?$"
     }
   ],
   "dataRoutes": [],

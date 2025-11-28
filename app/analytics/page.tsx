@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { DollarSign, LogOut } from "lucide-react"
+import { DollarSign } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import {
@@ -23,14 +23,18 @@ import {
 import Link from "next/link"
 
 interface ChartData {
-  spendingByCategory: any[]
-  monthlyTrend: any[]
-  incomeVsExpense: any[]
+  spendingByCategory: Array<{ name: string; value: number }>
+  monthlyTrend: Array<{ month: string; total: number }>
+  incomeVsExpense: Array<{ month: string; income: number; expense: number }>
 }
 
 export default function AnalyticsPage() {
   const router = useRouter()
-  const [chartData, setChartData] = useState<ChartData | null>(null)
+  const [chartData, setChartData] = useState<ChartData>({
+    spendingByCategory: [],
+    monthlyTrend: [],
+    incomeVsExpense: [],
+  })
   const [loading, setLoading] = useState(true)
   const [timeRange, setTimeRange] = useState<"month" | "quarter" | "year">("month")
 
@@ -48,6 +52,7 @@ export default function AnalyticsPage() {
 
   const fetchChartData = async () => {
     try {
+      setLoading(true)
       const token = localStorage.getItem("accessToken")
       const response = await fetch(`/api/analytics?range=${timeRange}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -59,8 +64,17 @@ export default function AnalyticsPage() {
         return
       }
 
+      if (!response.ok) {
+        console.error("Analytics API error:", response.status)
+        return
+      }
+
       const data = await response.json()
-      setChartData(data)
+      setChartData({
+        spendingByCategory: data.spendingByCategory || [],
+        monthlyTrend: data.monthlyTrend || [],
+        incomeVsExpense: data.incomeVsExpense || [],
+      })
     } catch (err) {
       console.error("Failed to fetch chart data", err)
     } finally {
@@ -94,8 +108,23 @@ export default function AnalyticsPage() {
               <span className="text-xl font-bold text-foreground">SAVR</span>
             </Link>
           </div>
-          <Button variant="ghost" onClick={handleLogout} className="text-muted-foreground hover:text-foreground">
-            <LogOut className="w-5 h-5" />
+          <Button variant="ghost" onClick={handleLogout} className="p-0 hover:opacity-80">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
           </Button>
         </div>
       </nav>

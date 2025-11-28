@@ -6,7 +6,7 @@
   "static/chunks/node_modules_recharts_es6_component_5db22d42._.js",
   "static/chunks/node_modules_recharts_es6_cartesian_5fce7465._.js",
   "static/chunks/node_modules_recharts_es6_92e41d19._.js",
-  "static/chunks/node_modules_45cedd53._.js",
+  "static/chunks/node_modules_21c5ad83._.js",
   "static/chunks/_d6ca32d3._.js"
 ],
     source: "dynamic"

@@ -20,5 +20,6 @@
   "/login/page": "/login",
   "/page": "/",
   "/register/page": "/register",
-  "/transactions/page": "/transactions"
+  "/transactions/page": "/transactions",
+  "/welcome/page": "/welcome"
 }

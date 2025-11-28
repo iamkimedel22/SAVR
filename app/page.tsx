@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [showWelcome, setShowWelcome] = useState(true)
   const router = useRouter()
 
   useEffect(() => {
@@ -16,6 +17,40 @@ export default function Home() {
       router.push("/dashboard")
     }
   }, [router])
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowWelcome(false)
+    }, 3000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (showWelcome) {
+    return (
+      <div className="min-h-screen bg-primary flex items-center justify-center transition-all duration-1000 ease-in-out">
+        <div className="text-center opacity-0 animate-fade-in">
+          <h1 className="text-7xl font-bold text-black tracking-wider drop-shadow-lg">SAVR</h1>
+          <p className="text-black text-lg mt-4 opacity-75">Take control of your finances</p>
+        </div>
+
+        <style>{`
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+
+          .animate-fade-in {
+            animation: fadeIn 1s ease-in-out forwards;
+          }
+        `}</style>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-900 to-background">
