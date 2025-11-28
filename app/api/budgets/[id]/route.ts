@@ -132,8 +132,8 @@ export async function DELETE(request: NextRequest, context: { params: Promise<{ 
       return NextResponse.json({ message: "Invalid token" }, { status: 401 })
     }
 
-    const { params } = await context
-    const { id } = params
+    const { params } = context
+    const { id } = await params
     if (!id) {
       return NextResponse.json({ message: "Budget ID missing" }, { status: 400 })
     }

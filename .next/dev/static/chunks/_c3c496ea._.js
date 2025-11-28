@@ -262,6 +262,7 @@ function BudgetsPage() {
     const [budgets, setBudgets] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     const [showModal, setShowModal] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
         category: "",
         amount: ""
@@ -331,17 +332,25 @@ function BudgetsPage() {
         if (confirm("Delete this budget?")) {
             try {
                 const token = localStorage.getItem("accessToken");
+                console.log(`Deleting budget ${id}...`);
                 const response = await fetch(`/api/budgets/${id}`, {
                     method: "DELETE",
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                console.log(`Delete response status: ${response.status}`);
+                const data = await response.json();
+                console.log(`Delete response data:`, data);
                 if (response.ok) {
+                    setError("");
                     fetchBudgets();
+                } else {
+                    setError(data.message || "Failed to delete budget");
                 }
             } catch (err) {
                 console.error("Failed to delete budget", err);
+                setError("An error occurred while deleting the budget");
             }
         }
     };
@@ -353,12 +362,12 @@ function BudgetsPage() {
                 children: "Loading budgets..."
             }, void 0, false, {
                 fileName: "[project]/app/budgets/page.tsx",
-                lineNumber: 111,
+                lineNumber: 121,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/app/budgets/page.tsx",
-            lineNumber: 110,
+            lineNumber: 120,
             columnNumber: 7
         }, this);
     }
@@ -383,12 +392,12 @@ function BudgetsPage() {
                                             children: "💰"
                                         }, void 0, false, {
                                             fileName: "[project]/app/budgets/page.tsx",
-                                            lineNumber: 124,
+                                            lineNumber: 134,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/budgets/page.tsx",
-                                        lineNumber: 123,
+                                        lineNumber: 133,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -396,18 +405,18 @@ function BudgetsPage() {
                                         children: "SAVR"
                                     }, void 0, false, {
                                         fileName: "[project]/app/budgets/page.tsx",
-                                        lineNumber: 126,
+                                        lineNumber: 136,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/budgets/page.tsx",
-                                lineNumber: 122,
+                                lineNumber: 132,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/budgets/page.tsx",
-                            lineNumber: 121,
+                            lineNumber: 131,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -417,18 +426,18 @@ function BudgetsPage() {
                             children: "🚪"
                         }, void 0, false, {
                             fileName: "[project]/app/budgets/page.tsx",
-                            lineNumber: 129,
+                            lineNumber: 139,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/budgets/page.tsx",
-                    lineNumber: 120,
+                    lineNumber: 130,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/budgets/page.tsx",
-                lineNumber: 119,
+                lineNumber: 129,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -442,7 +451,7 @@ function BudgetsPage() {
                             children: "Dashboard"
                         }, void 0, false, {
                             fileName: "[project]/app/budgets/page.tsx",
-                            lineNumber: 138,
+                            lineNumber: 148,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -451,7 +460,7 @@ function BudgetsPage() {
                             children: "Transactions"
                         }, void 0, false, {
                             fileName: "[project]/app/budgets/page.tsx",
-                            lineNumber: 141,
+                            lineNumber: 151,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -460,7 +469,7 @@ function BudgetsPage() {
                             children: "Budgets"
                         }, void 0, false, {
                             fileName: "[project]/app/budgets/page.tsx",
-                            lineNumber: 144,
+                            lineNumber: 154,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -469,23 +478,31 @@ function BudgetsPage() {
                             children: "Goals"
                         }, void 0, false, {
                             fileName: "[project]/app/budgets/page.tsx",
-                            lineNumber: 147,
+                            lineNumber: 157,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/budgets/page.tsx",
-                    lineNumber: 137,
+                    lineNumber: 147,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/budgets/page.tsx",
-                lineNumber: 136,
+                lineNumber: 146,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
                 className: "max-w-7xl mx-auto px-6 py-8",
                 children: [
+                    error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mb-6 p-4 bg-error/10 border border-error text-error rounded",
+                        children: error
+                    }, void 0, false, {
+                        fileName: "[project]/app/budgets/page.tsx",
+                        lineNumber: 166,
+                        columnNumber: 11
+                    }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex items-center justify-between mb-8",
                         children: [
@@ -494,7 +511,7 @@ function BudgetsPage() {
                                 children: "Budgets"
                             }, void 0, false, {
                                 fileName: "[project]/app/budgets/page.tsx",
-                                lineNumber: 156,
+                                lineNumber: 171,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -503,13 +520,13 @@ function BudgetsPage() {
                                 children: "➕ Add Budget"
                             }, void 0, false, {
                                 fileName: "[project]/app/budgets/page.tsx",
-                                lineNumber: 157,
+                                lineNumber: 172,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/budgets/page.tsx",
-                        lineNumber: 155,
+                        lineNumber: 170,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -522,7 +539,7 @@ function BudgetsPage() {
                                     children: "No budgets yet"
                                 }, void 0, false, {
                                     fileName: "[project]/app/budgets/page.tsx",
-                                    lineNumber: 169,
+                                    lineNumber: 184,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -531,13 +548,13 @@ function BudgetsPage() {
                                     children: "Create your first budget"
                                 }, void 0, false, {
                                     fileName: "[project]/app/budgets/page.tsx",
-                                    lineNumber: 170,
+                                    lineNumber: 185,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/budgets/page.tsx",
-                            lineNumber: 168,
+                            lineNumber: 183,
                             columnNumber: 13
                         }, this) : budgets.map((budget)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
                                 className: "bg-card-bg border-card-border",
@@ -552,24 +569,24 @@ function BudgetsPage() {
                                                     children: budget.category
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/budgets/page.tsx",
-                                                    lineNumber: 182,
+                                                    lineNumber: 197,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                                                     size: "sm",
-                                                    variant: "ghost",
+                                                    variant: "outline",
                                                     onClick: ()=>handleDeleteBudget(budget.id),
-                                                    className: "text-error hover:text-error/80",
-                                                    children: "🗑️"
+                                                    className: "border-error text-error hover:bg-error/10",
+                                                    children: "DELETE"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/budgets/page.tsx",
-                                                    lineNumber: 183,
+                                                    lineNumber: 198,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/budgets/page.tsx",
-                                            lineNumber: 181,
+                                            lineNumber: 196,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -588,7 +605,7 @@ function BudgetsPage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/budgets/page.tsx",
-                                                            lineNumber: 195,
+                                                            lineNumber: 210,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -599,13 +616,13 @@ function BudgetsPage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/budgets/page.tsx",
-                                                            lineNumber: 198,
+                                                            lineNumber: 213,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/budgets/page.tsx",
-                                                    lineNumber: 194,
+                                                    lineNumber: 209,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -617,18 +634,18 @@ function BudgetsPage() {
                                                         }
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/budgets/page.tsx",
-                                                        lineNumber: 201,
+                                                        lineNumber: 216,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/budgets/page.tsx",
-                                                    lineNumber: 200,
+                                                    lineNumber: 215,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/budgets/page.tsx",
-                                            lineNumber: 193,
+                                            lineNumber: 208,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -636,23 +653,23 @@ function BudgetsPage() {
                                             children: budget.percentage > 100 ? `Over budget by ₱${Number((budget.spent ?? 0) - (budget.amount ?? 0)).toFixed(2)}` : `₱${Number((budget.amount ?? 0) - (budget.spent ?? 0)).toFixed(2)} remaining`
                                         }, void 0, false, {
                                             fileName: "[project]/app/budgets/page.tsx",
-                                            lineNumber: 210,
+                                            lineNumber: 225,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/budgets/page.tsx",
-                                    lineNumber: 180,
+                                    lineNumber: 195,
                                     columnNumber: 17
                                 }, this)
                             }, budget.id, false, {
                                 fileName: "[project]/app/budgets/page.tsx",
-                                lineNumber: 179,
+                                lineNumber: 194,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/app/budgets/page.tsx",
-                        lineNumber: 166,
+                        lineNumber: 181,
                         columnNumber: 9
                     }, this),
                     showModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -667,7 +684,7 @@ function BudgetsPage() {
                                         children: "Create Budget"
                                     }, void 0, false, {
                                         fileName: "[project]/app/budgets/page.tsx",
-                                        lineNumber: 226,
+                                        lineNumber: 241,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -681,7 +698,7 @@ function BudgetsPage() {
                                                         children: "Category"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/budgets/page.tsx",
-                                                        lineNumber: 230,
+                                                        lineNumber: 245,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -696,13 +713,13 @@ function BudgetsPage() {
                                                         className: "bg-neutral-800 border-card-border text-foreground"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/budgets/page.tsx",
-                                                        lineNumber: 231,
+                                                        lineNumber: 246,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/budgets/page.tsx",
-                                                lineNumber: 229,
+                                                lineNumber: 244,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -712,7 +729,7 @@ function BudgetsPage() {
                                                         children: "Budget Amount"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/budgets/page.tsx",
-                                                        lineNumber: 242,
+                                                        lineNumber: 257,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -728,13 +745,13 @@ function BudgetsPage() {
                                                         className: "bg-neutral-800 border-card-border text-foreground"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/budgets/page.tsx",
-                                                        lineNumber: 243,
+                                                        lineNumber: 258,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/budgets/page.tsx",
-                                                lineNumber: 241,
+                                                lineNumber: 256,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -748,7 +765,7 @@ function BudgetsPage() {
                                                         children: "Cancel"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/budgets/page.tsx",
-                                                        lineNumber: 255,
+                                                        lineNumber: 270,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -757,51 +774,51 @@ function BudgetsPage() {
                                                         children: "Create"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/budgets/page.tsx",
-                                                        lineNumber: 263,
+                                                        lineNumber: 278,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/budgets/page.tsx",
-                                                lineNumber: 254,
+                                                lineNumber: 269,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/budgets/page.tsx",
-                                        lineNumber: 228,
+                                        lineNumber: 243,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/budgets/page.tsx",
-                                lineNumber: 225,
+                                lineNumber: 240,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/budgets/page.tsx",
-                            lineNumber: 224,
+                            lineNumber: 239,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/budgets/page.tsx",
-                        lineNumber: 223,
+                        lineNumber: 238,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/budgets/page.tsx",
-                lineNumber: 154,
+                lineNumber: 164,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/budgets/page.tsx",
-        lineNumber: 117,
+        lineNumber: 127,
         columnNumber: 5
     }, this);
 }
-_s(BudgetsPage, "bjf7X7mVNGEgAxFufcjHex39zgM=", false, function() {
+_s(BudgetsPage, "/ndrMA7Bg9TvVbtU7U17Az/9hlY=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];

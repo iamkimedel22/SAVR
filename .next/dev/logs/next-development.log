@@ -1,5 +1,6 @@
-[00:00:00.673] Server  LOG      ✓ Ready in 431ms
-[00:00:04.593] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:46.978] Browser LOG     Deleting transaction 6...
-[00:00:47.631] Browser LOG     Delete response status: 200
-[00:00:47.631] Browser LOG     Delete response data: {"message":"Transaction deleted"}
+[00:00:00.694] Server  LOG      ✓ Ready in 440ms
+[00:00:03.143] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:03.232] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:08.422] Browser LOG     Deleting budget 2...
+[00:00:09.052] Browser LOG     Delete response status: 200
+[00:00:09.053] Browser LOG     Delete response data: {"message":"Budget deleted"}

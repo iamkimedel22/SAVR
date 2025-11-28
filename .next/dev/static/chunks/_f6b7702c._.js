@@ -262,6 +262,7 @@ function GoalsPage() {
     const [goals, setGoals] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     const [showModal, setShowModal] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
         title: "",
         targetAmount: "",
@@ -333,17 +334,25 @@ function GoalsPage() {
         if (confirm("Delete this goal?")) {
             try {
                 const token = localStorage.getItem("accessToken");
+                console.log(`Deleting goal ${id}...`);
                 const response = await fetch(`/api/goals/${id}`, {
                     method: "DELETE",
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                console.log(`Delete response status: ${response.status}`);
+                const data = await response.json();
+                console.log(`Delete response data:`, data);
                 if (response.ok) {
+                    setError("");
                     fetchGoals();
+                } else {
+                    setError(data.message || "Failed to delete goal");
                 }
             } catch (err) {
                 console.error("Failed to delete goal", err);
+                setError("An error occurred while deleting the goal");
             }
         }
     };
@@ -355,12 +364,12 @@ function GoalsPage() {
                 children: "Loading goals..."
             }, void 0, false, {
                 fileName: "[project]/app/goals/page.tsx",
-                lineNumber: 113,
+                lineNumber: 123,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/app/goals/page.tsx",
-            lineNumber: 112,
+            lineNumber: 122,
             columnNumber: 7
         }, this);
     }
@@ -385,12 +394,12 @@ function GoalsPage() {
                                             children: "💰"
                                         }, void 0, false, {
                                             fileName: "[project]/app/goals/page.tsx",
-                                            lineNumber: 126,
+                                            lineNumber: 136,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/goals/page.tsx",
-                                        lineNumber: 125,
+                                        lineNumber: 135,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -398,18 +407,18 @@ function GoalsPage() {
                                         children: "SAVR"
                                     }, void 0, false, {
                                         fileName: "[project]/app/goals/page.tsx",
-                                        lineNumber: 128,
+                                        lineNumber: 138,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/goals/page.tsx",
-                                lineNumber: 124,
+                                lineNumber: 134,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/goals/page.tsx",
-                            lineNumber: 123,
+                            lineNumber: 133,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -419,18 +428,18 @@ function GoalsPage() {
                             children: "🚪"
                         }, void 0, false, {
                             fileName: "[project]/app/goals/page.tsx",
-                            lineNumber: 131,
+                            lineNumber: 141,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/goals/page.tsx",
-                    lineNumber: 122,
+                    lineNumber: 132,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/goals/page.tsx",
-                lineNumber: 121,
+                lineNumber: 131,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -444,7 +453,7 @@ function GoalsPage() {
                             children: "Dashboard"
                         }, void 0, false, {
                             fileName: "[project]/app/goals/page.tsx",
-                            lineNumber: 140,
+                            lineNumber: 150,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -453,7 +462,7 @@ function GoalsPage() {
                             children: "Transactions"
                         }, void 0, false, {
                             fileName: "[project]/app/goals/page.tsx",
-                            lineNumber: 143,
+                            lineNumber: 153,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -462,7 +471,7 @@ function GoalsPage() {
                             children: "Budgets"
                         }, void 0, false, {
                             fileName: "[project]/app/goals/page.tsx",
-                            lineNumber: 146,
+                            lineNumber: 156,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -471,23 +480,31 @@ function GoalsPage() {
                             children: "Goals"
                         }, void 0, false, {
                             fileName: "[project]/app/goals/page.tsx",
-                            lineNumber: 149,
+                            lineNumber: 159,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/goals/page.tsx",
-                    lineNumber: 139,
+                    lineNumber: 149,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/goals/page.tsx",
-                lineNumber: 138,
+                lineNumber: 148,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
                 className: "max-w-7xl mx-auto px-6 py-8",
                 children: [
+                    error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mb-6 p-4 bg-error/10 border border-error text-error rounded",
+                        children: error
+                    }, void 0, false, {
+                        fileName: "[project]/app/goals/page.tsx",
+                        lineNumber: 168,
+                        columnNumber: 11
+                    }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex items-center justify-between mb-8",
                         children: [
@@ -496,7 +513,7 @@ function GoalsPage() {
                                 children: "Savings Goals"
                             }, void 0, false, {
                                 fileName: "[project]/app/goals/page.tsx",
-                                lineNumber: 158,
+                                lineNumber: 173,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -505,13 +522,13 @@ function GoalsPage() {
                                 children: "➕ New Goal"
                             }, void 0, false, {
                                 fileName: "[project]/app/goals/page.tsx",
-                                lineNumber: 159,
+                                lineNumber: 174,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/goals/page.tsx",
-                        lineNumber: 157,
+                        lineNumber: 172,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -524,7 +541,7 @@ function GoalsPage() {
                                     children: "No savings goals yet"
                                 }, void 0, false, {
                                     fileName: "[project]/app/goals/page.tsx",
-                                    lineNumber: 171,
+                                    lineNumber: 186,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -533,13 +550,13 @@ function GoalsPage() {
                                     children: "Create your first goal"
                                 }, void 0, false, {
                                     fileName: "[project]/app/goals/page.tsx",
-                                    lineNumber: 172,
+                                    lineNumber: 187,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/goals/page.tsx",
-                            lineNumber: 170,
+                            lineNumber: 185,
                             columnNumber: 13
                         }, this) : goals.map((goal)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
                                 className: "bg-card-bg border-card-border",
@@ -554,24 +571,24 @@ function GoalsPage() {
                                                     children: goal.title
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/goals/page.tsx",
-                                                    lineNumber: 184,
+                                                    lineNumber: 199,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                                                     size: "sm",
-                                                    variant: "ghost",
+                                                    variant: "outline",
                                                     onClick: ()=>handleDeleteGoal(goal.id),
-                                                    className: "text-error hover:text-error/80",
-                                                    children: "🗑️"
+                                                    className: "border-error text-error hover:bg-error/10",
+                                                    children: "DELETE"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/goals/page.tsx",
-                                                    lineNumber: 185,
+                                                    lineNumber: 200,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/goals/page.tsx",
-                                            lineNumber: 183,
+                                            lineNumber: 198,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -590,7 +607,7 @@ function GoalsPage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/goals/page.tsx",
-                                                            lineNumber: 197,
+                                                            lineNumber: 212,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -601,13 +618,13 @@ function GoalsPage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/goals/page.tsx",
-                                                            lineNumber: 200,
+                                                            lineNumber: 215,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/goals/page.tsx",
-                                                    lineNumber: 196,
+                                                    lineNumber: 211,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -619,18 +636,18 @@ function GoalsPage() {
                                                         }
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/goals/page.tsx",
-                                                        lineNumber: 203,
+                                                        lineNumber: 218,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/goals/page.tsx",
-                                                    lineNumber: 202,
+                                                    lineNumber: 217,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/goals/page.tsx",
-                                            lineNumber: 195,
+                                            lineNumber: 210,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -644,7 +661,7 @@ function GoalsPage() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/goals/page.tsx",
-                                                    lineNumber: 211,
+                                                    lineNumber: 226,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -656,29 +673,29 @@ function GoalsPage() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/goals/page.tsx",
-                                                    lineNumber: 212,
+                                                    lineNumber: 227,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/goals/page.tsx",
-                                            lineNumber: 210,
+                                            lineNumber: 225,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/goals/page.tsx",
-                                    lineNumber: 182,
+                                    lineNumber: 197,
                                     columnNumber: 17
                                 }, this)
                             }, goal.id, false, {
                                 fileName: "[project]/app/goals/page.tsx",
-                                lineNumber: 181,
+                                lineNumber: 196,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/app/goals/page.tsx",
-                        lineNumber: 168,
+                        lineNumber: 183,
                         columnNumber: 9
                     }, this),
                     showModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -693,7 +710,7 @@ function GoalsPage() {
                                         children: "New Savings Goal"
                                     }, void 0, false, {
                                         fileName: "[project]/app/goals/page.tsx",
-                                        lineNumber: 227,
+                                        lineNumber: 242,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -707,7 +724,7 @@ function GoalsPage() {
                                                         children: "Goal Title"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/goals/page.tsx",
-                                                        lineNumber: 231,
+                                                        lineNumber: 246,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -722,13 +739,13 @@ function GoalsPage() {
                                                         className: "bg-neutral-800 border-card-border text-foreground"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/goals/page.tsx",
-                                                        lineNumber: 232,
+                                                        lineNumber: 247,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/goals/page.tsx",
-                                                lineNumber: 230,
+                                                lineNumber: 245,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -738,7 +755,7 @@ function GoalsPage() {
                                                         children: "Target Amount"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/goals/page.tsx",
-                                                        lineNumber: 243,
+                                                        lineNumber: 258,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -754,13 +771,13 @@ function GoalsPage() {
                                                         className: "bg-neutral-800 border-card-border text-foreground"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/goals/page.tsx",
-                                                        lineNumber: 244,
+                                                        lineNumber: 259,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/goals/page.tsx",
-                                                lineNumber: 242,
+                                                lineNumber: 257,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -770,7 +787,7 @@ function GoalsPage() {
                                                         children: "Target Date"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/goals/page.tsx",
-                                                        lineNumber: 256,
+                                                        lineNumber: 271,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -784,13 +801,13 @@ function GoalsPage() {
                                                         className: "bg-neutral-800 border-card-border text-foreground"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/goals/page.tsx",
-                                                        lineNumber: 257,
+                                                        lineNumber: 272,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/goals/page.tsx",
-                                                lineNumber: 255,
+                                                lineNumber: 270,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -804,7 +821,7 @@ function GoalsPage() {
                                                         children: "Cancel"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/goals/page.tsx",
-                                                        lineNumber: 267,
+                                                        lineNumber: 282,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -813,51 +830,51 @@ function GoalsPage() {
                                                         children: "Create"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/goals/page.tsx",
-                                                        lineNumber: 275,
+                                                        lineNumber: 290,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/goals/page.tsx",
-                                                lineNumber: 266,
+                                                lineNumber: 281,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/goals/page.tsx",
-                                        lineNumber: 229,
+                                        lineNumber: 244,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/goals/page.tsx",
-                                lineNumber: 226,
+                                lineNumber: 241,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/goals/page.tsx",
-                            lineNumber: 225,
+                            lineNumber: 240,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/goals/page.tsx",
-                        lineNumber: 224,
+                        lineNumber: 239,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/goals/page.tsx",
-                lineNumber: 156,
+                lineNumber: 166,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/goals/page.tsx",
-        lineNumber: 119,
+        lineNumber: 129,
         columnNumber: 5
     }, this);
 }
-_s(GoalsPage, "nG919dxLNTJ6bTSupqNOv7pPfmo=", false, function() {
+_s(GoalsPage, "XaiUyrn4XlAZ2uwtbdHjuWG1Xvo=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];
