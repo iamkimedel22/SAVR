@@ -22,6 +22,7 @@ export default function BudgetsPage() {
   const [budgets, setBudgets] = useState<Budget[]>([])
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
+  const [error, setError] = useState("")
   const [formData, setFormData] = useState({
     category: "",
     amount: "",
@@ -91,16 +92,25 @@ export default function BudgetsPage() {
     if (confirm("Delete this budget?")) {
       try {
         const token = localStorage.getItem("accessToken")
+        console.log(`Deleting budget ${id}...`)
         const response = await fetch(`/api/budgets/${id}`, {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
         })
 
+        console.log(`Delete response status: ${response.status}`)
+        const data = await response.json()
+        console.log(`Delete response data:`, data)
+
         if (response.ok) {
+          setError("")
           fetchBudgets()
+        } else {
+          setError(data.message || "Failed to delete budget")
         }
       } catch (err) {
         console.error("Failed to delete budget", err)
+        setError("An error occurred while deleting the budget")
       }
     }
   }
@@ -152,6 +162,11 @@ export default function BudgetsPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 py-8">
+        {error && (
+          <div className="mb-6 p-4 bg-error/10 border border-error text-error rounded">
+            {error}
+          </div>
+        )}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-foreground">Budgets</h1>
           <Button
@@ -182,11 +197,11 @@ export default function BudgetsPage() {
                     <h3 className="text-lg font-semibold text-foreground">{budget.category}</h3>
                     <Button
                       size="sm"
-                      variant="ghost"
+                      variant="outline"
                       onClick={() => handleDeleteBudget(budget.id)}
-                      className="text-error hover:text-error/80"
+                      className="border-error text-error hover:bg-error/10"
                     >
-                      🗑️
+                      DELETE
                     </Button>
                   </div>
 

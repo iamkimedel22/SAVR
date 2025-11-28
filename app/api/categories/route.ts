@@ -40,3 +40,32 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ message: "Internal server error" }, { status: 500 })
   }
 }
+
+export async function POST(request: NextRequest) {
+  try {
+    const token = getAuthToken(request)
+    if (!token) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
+    }
+
+    const decoded = verifyToken(token)
+    if (!decoded) {
+      return NextResponse.json({ message: "Invalid token" }, { status: 401 })
+    }
+
+    const body = await request.json()
+    const { name, color } = body
+
+    if (!name) return NextResponse.json({ message: "Missing category name" }, { status: 400 })
+
+    const exists = await executeQuery("SELECT id FROM categories WHERE user_id = ? AND name = ?", [decoded.userId, name])
+    if (Array.isArray(exists) && exists.length > 0) return NextResponse.json({ message: "Category exists" }, { status: 400 })
+
+    await executeQuery("INSERT INTO categories (user_id, name, color) VALUES (?, ?, ?)", [decoded.userId, name, color || null])
+
+    return NextResponse.json({ message: "Category created" }, { status: 201 })
+  } catch (error) {
+    console.error("[v0] Create category error:", error)
+    return NextResponse.json({ message: "Internal server error" }, { status: 500 })
+  }
+}

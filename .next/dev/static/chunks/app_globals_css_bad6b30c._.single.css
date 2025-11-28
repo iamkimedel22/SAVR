@@ -1558,6 +1558,11 @@
     border-color: var(--destructive);
   }
 
+  .border-error {
+    border-color: #e40014;
+    border-color: lab(48.4493% 77.4328 61.5452);
+  }
+
   .border-input {
     border-color: var(--input);
   }
@@ -2419,6 +2424,10 @@
     --cell-size: calc(var(--spacing) * 8);
   }
 
+  .running {
+    animation-play-state: running;
+  }
+
   .group-focus-within\/menu-item\:opacity-100:is(:where(.group\/menu-item):focus-within *) {
     opacity: 1;
   }
@@ -2850,6 +2859,13 @@
   }
 
   @media (hover: hover) {
+    .hover\:bg-error\/10:hover {
+      background-color: #e400141a;
+      background-color: lab(48.4493% 77.4328 61.5452 / .1);
+    }
+  }
+
+  @media (hover: hover) {
     .hover\:bg-muted:hover {
       background-color: var(--muted);
     }
@@ -2864,6 +2880,12 @@
       .hover\:bg-muted\/50:hover {
         background-color: color-mix(in oklab, var(--muted) 50%, transparent);
       }
+    }
+  }
+
+  @media (hover: hover) {
+    .hover\:bg-neutral-700:hover {
+      background-color: var(--color-neutral-700);
     }
   }
 
@@ -2918,13 +2940,6 @@
   @media (hover: hover) {
     .hover\:text-accent-foreground:hover {
       color: var(--accent-foreground);
-    }
-  }
-
-  @media (hover: hover) {
-    .hover\:text-error\/80:hover {
-      color: #e40014cc;
-      color: lab(48.4493% 77.4328 61.5452 / .8);
     }
   }
 

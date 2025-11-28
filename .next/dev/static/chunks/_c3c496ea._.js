@@ -801,7 +801,7 @@ function BudgetsPage() {
         columnNumber: 5
     }, this);
 }
-_s(BudgetsPage, "NK7URFBs1Dg8FuoIDSE9mOu9ZPE=", false, function() {
+_s(BudgetsPage, "bjf7X7mVNGEgAxFufcjHex39zgM=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];

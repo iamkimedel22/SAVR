@@ -23,6 +23,7 @@ export default function GoalsPage() {
   const [goals, setGoals] = useState<SavingsGoal[]>([])
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
+  const [error, setError] = useState("")
   const [formData, setFormData] = useState({
     title: "",
     targetAmount: "",
@@ -93,16 +94,25 @@ export default function GoalsPage() {
     if (confirm("Delete this goal?")) {
       try {
         const token = localStorage.getItem("accessToken")
+        console.log(`Deleting goal ${id}...`)
         const response = await fetch(`/api/goals/${id}`, {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
         })
 
+        console.log(`Delete response status: ${response.status}`)
+        const data = await response.json()
+        console.log(`Delete response data:`, data)
+
         if (response.ok) {
+          setError("")
           fetchGoals()
+        } else {
+          setError(data.message || "Failed to delete goal")
         }
       } catch (err) {
         console.error("Failed to delete goal", err)
+        setError("An error occurred while deleting the goal")
       }
     }
   }
@@ -154,6 +164,11 @@ export default function GoalsPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 py-8">
+        {error && (
+          <div className="mb-6 p-4 bg-error/10 border border-error text-error rounded">
+            {error}
+          </div>
+        )}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-foreground">Savings Goals</h1>
           <Button
@@ -184,11 +199,11 @@ export default function GoalsPage() {
                     <h3 className="text-lg font-semibold text-foreground">{goal.title}</h3>
                     <Button
                       size="sm"
-                      variant="ghost"
+                      variant="outline"
                       onClick={() => handleDeleteGoal(goal.id)}
-                      className="text-error hover:text-error/80"
+                      className="border-error text-error hover:bg-error/10"
                     >
-                      🗑️
+                      DELETE
                     </Button>
                   </div>
 

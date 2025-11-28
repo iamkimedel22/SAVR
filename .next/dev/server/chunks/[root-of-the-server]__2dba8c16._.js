@@ -188,7 +188,9 @@ const __TURBOPACK__default__export__ = pool;
 
 __turbopack_context__.s([
     "GET",
-    ()=>GET
+    ()=>GET,
+    "POST",
+    ()=>POST
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/server.js [app-route] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/auth.ts [app-route] (ecmascript)");
@@ -231,6 +233,59 @@ async function GET(request) {
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(mapped);
     } catch (error) {
         console.error("[v0] Get categories error:", error);
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            message: "Internal server error"
+        }, {
+            status: 500
+        });
+    }
+}
+async function POST(request) {
+    try {
+        const token = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["getAuthToken"])(request);
+        if (!token) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                message: "Unauthorized"
+            }, {
+                status: 401
+            });
+        }
+        const decoded = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["verifyToken"])(token);
+        if (!decoded) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                message: "Invalid token"
+            }, {
+                status: 401
+            });
+        }
+        const body = await request.json();
+        const { name, color } = body;
+        if (!name) return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            message: "Missing category name"
+        }, {
+            status: 400
+        });
+        const exists = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["executeQuery"])("SELECT id FROM categories WHERE user_id = ? AND name = ?", [
+            decoded.userId,
+            name
+        ]);
+        if (Array.isArray(exists) && exists.length > 0) return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            message: "Category exists"
+        }, {
+            status: 400
+        });
+        await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["executeQuery"])("INSERT INTO categories (user_id, name, color) VALUES (?, ?, ?)", [
+            decoded.userId,
+            name,
+            color || null
+        ]);
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            message: "Category created"
+        }, {
+            status: 201
+        });
+    } catch (error) {
+        console.error("[v0] Create category error:", error);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             message: "Internal server error"
         }, {

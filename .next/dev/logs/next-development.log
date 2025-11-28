@@ -1,8 +1,5 @@
-[00:00:00.712] Server  LOG      ✓ Ready in 469ms
-[00:00:04.346] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:08:25.033] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:15:31.184] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:19:30.861] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:20:56.897] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:27:02.722] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:28:08.602] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:00.673] Server  LOG      ✓ Ready in 431ms
+[00:00:04.593] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:46.978] Browser LOG     Deleting transaction 6...
+[00:00:47.631] Browser LOG     Delete response status: 200
+[00:00:47.631] Browser LOG     Delete response data: {"message":"Transaction deleted"}

@@ -1,18 +1,6 @@
 {
-  "/analytics/page": "app/analytics/page.js",
-  "/api/analytics/route": "app/api/analytics/route.js",
-  "/api/auth/login/route": "app/api/auth/login/route.js",
-  "/api/auth/register/route": "app/api/auth/register/route.js",
-  "/api/budgets/route": "app/api/budgets/route.js",
   "/api/categories/route": "app/api/categories/route.js",
-  "/api/dashboard/route": "app/api/dashboard/route.js",
-  "/api/goals/route": "app/api/goals/route.js",
+  "/api/transactions/[id]/route": "app/api/transactions/[id]/route.js",
   "/api/transactions/route": "app/api/transactions/route.js",
-  "/budgets/page": "app/budgets/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/goals/page": "app/goals/page.js",
-  "/login/page": "app/login/page.js",
-  "/page": "app/page.js",
-  "/register/page": "app/register/page.js",
   "/transactions/page": "app/transactions/page.js"
 }

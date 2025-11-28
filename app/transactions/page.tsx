@@ -30,6 +30,7 @@ export default function TransactionsPage() {
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(searchParams.get("action") === "new")
+  const [error, setError] = useState("")
   const [formData, setFormData] = useState({
     amount: "",
     category: "",
@@ -115,16 +116,25 @@ export default function TransactionsPage() {
     if (confirm("Are you sure you want to delete this transaction?")) {
       try {
         const token = localStorage.getItem("accessToken")
+        console.log(`Deleting transaction ${id}...`)
         const response = await fetch(`/api/transactions/${id}`, {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
         })
 
+        console.log(`Delete response status: ${response.status}`)
+        const data = await response.json()
+        console.log(`Delete response data:`, data)
+
         if (response.ok) {
+          setError("")
           fetchData()
+        } else {
+          setError(data.message || "Failed to delete transaction")
         }
       } catch (err) {
         console.error("Failed to delete transaction", err)
+        setError("An error occurred while deleting the transaction")
       }
     }
   }
@@ -189,6 +199,11 @@ export default function TransactionsPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 py-8">
+        {error && (
+          <div className="mb-6 p-4 bg-error/10 border border-error text-error rounded">
+            {error}
+          </div>
+        )}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-foreground">Transactions</h1>
           <div className="flex gap-4">
@@ -247,16 +262,16 @@ export default function TransactionsPage() {
                       </td>
                       <td className="px-6 py-4 text-muted-foreground text-sm">{tx.note}</td>
                       <td className="px-6 py-4 flex gap-2">
-                        <Button size="sm" variant="ghost" className="text-muted-foreground hover:text-foreground">
-                          ✏️
+                        <Button size="sm" variant="outline" className="border-card-border text-foreground hover:bg-neutral-700">
+                          UPDATE
                         </Button>
                         <Button
                           size="sm"
-                          variant="ghost"
+                          variant="outline"
                           onClick={() => handleDeleteTransaction(tx.id)}
-                          className="text-error hover:text-error/80"
+                          className="border-error text-error hover:bg-error/10"
                         >
-                          🗑️
+                          DELETE
                         </Button>
                       </td>
                     </tr>

@@ -264,6 +264,7 @@ function TransactionsPage() {
     const [categories, setCategories] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     const [showModal, setShowModal] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(searchParams.get("action") === "new");
+    const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
         amount: "",
         category: "",
@@ -348,17 +349,25 @@ function TransactionsPage() {
         if (confirm("Are you sure you want to delete this transaction?")) {
             try {
                 const token = localStorage.getItem("accessToken");
+                console.log(`Deleting transaction ${id}...`);
                 const response = await fetch(`/api/transactions/${id}`, {
                     method: "DELETE",
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                console.log(`Delete response status: ${response.status}`);
+                const data = await response.json();
+                console.log(`Delete response data:`, data);
                 if (response.ok) {
+                    setError("");
                     fetchData();
+                } else {
+                    setError(data.message || "Failed to delete transaction");
                 }
             } catch (err) {
                 console.error("Failed to delete transaction", err);
+                setError("An error occurred while deleting the transaction");
             }
         }
     };
@@ -400,12 +409,12 @@ function TransactionsPage() {
                 children: "Loading transactions..."
             }, void 0, false, {
                 fileName: "[project]/app/transactions/page.tsx",
-                lineNumber: 148,
+                lineNumber: 158,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/app/transactions/page.tsx",
-            lineNumber: 147,
+            lineNumber: 157,
             columnNumber: 7
         }, this);
     }
@@ -430,12 +439,12 @@ function TransactionsPage() {
                                             children: "💰"
                                         }, void 0, false, {
                                             fileName: "[project]/app/transactions/page.tsx",
-                                            lineNumber: 161,
+                                            lineNumber: 171,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/transactions/page.tsx",
-                                        lineNumber: 160,
+                                        lineNumber: 170,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -443,18 +452,18 @@ function TransactionsPage() {
                                         children: "SAVR"
                                     }, void 0, false, {
                                         fileName: "[project]/app/transactions/page.tsx",
-                                        lineNumber: 163,
+                                        lineNumber: 173,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/transactions/page.tsx",
-                                lineNumber: 159,
+                                lineNumber: 169,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/transactions/page.tsx",
-                            lineNumber: 158,
+                            lineNumber: 168,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -464,18 +473,18 @@ function TransactionsPage() {
                             children: "🚪"
                         }, void 0, false, {
                             fileName: "[project]/app/transactions/page.tsx",
-                            lineNumber: 166,
+                            lineNumber: 176,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/transactions/page.tsx",
-                    lineNumber: 157,
+                    lineNumber: 167,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/transactions/page.tsx",
-                lineNumber: 156,
+                lineNumber: 166,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -489,7 +498,7 @@ function TransactionsPage() {
                             children: "Dashboard"
                         }, void 0, false, {
                             fileName: "[project]/app/transactions/page.tsx",
-                            lineNumber: 175,
+                            lineNumber: 185,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -498,7 +507,7 @@ function TransactionsPage() {
                             children: "Transactions"
                         }, void 0, false, {
                             fileName: "[project]/app/transactions/page.tsx",
-                            lineNumber: 178,
+                            lineNumber: 188,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -507,7 +516,7 @@ function TransactionsPage() {
                             children: "Budgets"
                         }, void 0, false, {
                             fileName: "[project]/app/transactions/page.tsx",
-                            lineNumber: 181,
+                            lineNumber: 191,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -516,23 +525,31 @@ function TransactionsPage() {
                             children: "Goals"
                         }, void 0, false, {
                             fileName: "[project]/app/transactions/page.tsx",
-                            lineNumber: 184,
+                            lineNumber: 194,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/transactions/page.tsx",
-                    lineNumber: 174,
+                    lineNumber: 184,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/transactions/page.tsx",
-                lineNumber: 173,
+                lineNumber: 183,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
                 className: "max-w-7xl mx-auto px-6 py-8",
                 children: [
+                    error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mb-6 p-4 bg-error/10 border border-error text-error rounded",
+                        children: error
+                    }, void 0, false, {
+                        fileName: "[project]/app/transactions/page.tsx",
+                        lineNumber: 203,
+                        columnNumber: 11
+                    }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex items-center justify-between mb-8",
                         children: [
@@ -541,7 +558,7 @@ function TransactionsPage() {
                                 children: "Transactions"
                             }, void 0, false, {
                                 fileName: "[project]/app/transactions/page.tsx",
-                                lineNumber: 193,
+                                lineNumber: 208,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -554,7 +571,7 @@ function TransactionsPage() {
                                         children: "📥 Export CSV"
                                     }, void 0, false, {
                                         fileName: "[project]/app/transactions/page.tsx",
-                                        lineNumber: 195,
+                                        lineNumber: 210,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -563,19 +580,19 @@ function TransactionsPage() {
                                         children: "➕ Add Transaction"
                                     }, void 0, false, {
                                         fileName: "[project]/app/transactions/page.tsx",
-                                        lineNumber: 202,
+                                        lineNumber: 217,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/transactions/page.tsx",
-                                lineNumber: 194,
+                                lineNumber: 209,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/transactions/page.tsx",
-                        lineNumber: 192,
+                        lineNumber: 207,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
@@ -594,7 +611,7 @@ function TransactionsPage() {
                                                     children: "Date"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/transactions/page.tsx",
-                                                    lineNumber: 217,
+                                                    lineNumber: 232,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -602,7 +619,7 @@ function TransactionsPage() {
                                                     children: "Category"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/transactions/page.tsx",
-                                                    lineNumber: 218,
+                                                    lineNumber: 233,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -610,7 +627,7 @@ function TransactionsPage() {
                                                     children: "Type"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/transactions/page.tsx",
-                                                    lineNumber: 219,
+                                                    lineNumber: 234,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -618,7 +635,7 @@ function TransactionsPage() {
                                                     children: "Amount"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/transactions/page.tsx",
-                                                    lineNumber: 220,
+                                                    lineNumber: 235,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -626,7 +643,7 @@ function TransactionsPage() {
                                                     children: "Note"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/transactions/page.tsx",
-                                                    lineNumber: 221,
+                                                    lineNumber: 236,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -634,18 +651,18 @@ function TransactionsPage() {
                                                     children: "Actions"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/transactions/page.tsx",
-                                                    lineNumber: 222,
+                                                    lineNumber: 237,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/transactions/page.tsx",
-                                            lineNumber: 216,
+                                            lineNumber: 231,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/transactions/page.tsx",
-                                        lineNumber: 215,
+                                        lineNumber: 230,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -656,12 +673,12 @@ function TransactionsPage() {
                                                 children: "No transactions yet. Add one to get started!"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/transactions/page.tsx",
-                                                lineNumber: 228,
+                                                lineNumber: 243,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/transactions/page.tsx",
-                                            lineNumber: 227,
+                                            lineNumber: 242,
                                             columnNumber: 19
                                         }, this) : transactions.map((tx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                 className: "border-b border-card-border hover:bg-neutral-800/50",
@@ -671,7 +688,7 @@ function TransactionsPage() {
                                                         children: tx.date
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 235,
+                                                        lineNumber: 250,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -679,7 +696,7 @@ function TransactionsPage() {
                                                         children: tx.category
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 236,
+                                                        lineNumber: 251,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -692,12 +709,12 @@ function TransactionsPage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/transactions/page.tsx",
-                                                            lineNumber: 238,
+                                                            lineNumber: 253,
                                                             columnNumber: 25
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 237,
+                                                        lineNumber: 252,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -710,7 +727,7 @@ function TransactionsPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 245,
+                                                        lineNumber: 260,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -718,7 +735,7 @@ function TransactionsPage() {
                                                         children: tx.note
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 248,
+                                                        lineNumber: 263,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -726,56 +743,56 @@ function TransactionsPage() {
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                                                                 size: "sm",
-                                                                variant: "ghost",
-                                                                className: "text-muted-foreground hover:text-foreground",
-                                                                children: "✏️"
+                                                                variant: "outline",
+                                                                className: "border-card-border text-foreground hover:bg-neutral-700",
+                                                                children: "UPDATE"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/transactions/page.tsx",
-                                                                lineNumber: 250,
+                                                                lineNumber: 265,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                                                                 size: "sm",
-                                                                variant: "ghost",
+                                                                variant: "outline",
                                                                 onClick: ()=>handleDeleteTransaction(tx.id),
-                                                                className: "text-error hover:text-error/80",
-                                                                children: "🗑️"
+                                                                className: "border-error text-error hover:bg-error/10",
+                                                                children: "DELETE"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/transactions/page.tsx",
-                                                                lineNumber: 253,
+                                                                lineNumber: 268,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 249,
+                                                        lineNumber: 264,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, tx.id, true, {
                                                 fileName: "[project]/app/transactions/page.tsx",
-                                                lineNumber: 234,
+                                                lineNumber: 249,
                                                 columnNumber: 21
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/app/transactions/page.tsx",
-                                        lineNumber: 225,
+                                        lineNumber: 240,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/transactions/page.tsx",
-                                lineNumber: 214,
+                                lineNumber: 229,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/transactions/page.tsx",
-                            lineNumber: 213,
+                            lineNumber: 228,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/transactions/page.tsx",
-                        lineNumber: 212,
+                        lineNumber: 227,
                         columnNumber: 9
                     }, this),
                     showModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -790,7 +807,7 @@ function TransactionsPage() {
                                         children: "Add Transaction"
                                     }, void 0, false, {
                                         fileName: "[project]/app/transactions/page.tsx",
-                                        lineNumber: 275,
+                                        lineNumber: 290,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -804,7 +821,7 @@ function TransactionsPage() {
                                                         children: "Amount"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 279,
+                                                        lineNumber: 294,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -820,13 +837,13 @@ function TransactionsPage() {
                                                         className: "bg-neutral-800 border-card-border text-foreground"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 280,
+                                                        lineNumber: 295,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/transactions/page.tsx",
-                                                lineNumber: 278,
+                                                lineNumber: 293,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -836,7 +853,7 @@ function TransactionsPage() {
                                                         children: "Category"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 292,
+                                                        lineNumber: 307,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -853,7 +870,7 @@ function TransactionsPage() {
                                                                 children: "Select category"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/transactions/page.tsx",
-                                                                lineNumber: 299,
+                                                                lineNumber: 314,
                                                                 columnNumber: 23
                                                             }, this),
                                                             categories.map((cat)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -861,19 +878,19 @@ function TransactionsPage() {
                                                                     children: cat.name
                                                                 }, cat.id, false, {
                                                                     fileName: "[project]/app/transactions/page.tsx",
-                                                                    lineNumber: 301,
+                                                                    lineNumber: 316,
                                                                     columnNumber: 25
                                                                 }, this))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 293,
+                                                        lineNumber: 308,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/transactions/page.tsx",
-                                                lineNumber: 291,
+                                                lineNumber: 306,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -883,7 +900,7 @@ function TransactionsPage() {
                                                         children: "Type"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 309,
+                                                        lineNumber: 324,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -899,7 +916,7 @@ function TransactionsPage() {
                                                                 children: "Expense"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/transactions/page.tsx",
-                                                                lineNumber: 315,
+                                                                lineNumber: 330,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -907,19 +924,19 @@ function TransactionsPage() {
                                                                 children: "Income"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/transactions/page.tsx",
-                                                                lineNumber: 316,
+                                                                lineNumber: 331,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 310,
+                                                        lineNumber: 325,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/transactions/page.tsx",
-                                                lineNumber: 308,
+                                                lineNumber: 323,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -929,7 +946,7 @@ function TransactionsPage() {
                                                         children: "Date"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 321,
+                                                        lineNumber: 336,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -943,13 +960,13 @@ function TransactionsPage() {
                                                         className: "bg-neutral-800 border-card-border text-foreground"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 322,
+                                                        lineNumber: 337,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/transactions/page.tsx",
-                                                lineNumber: 320,
+                                                lineNumber: 335,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -959,7 +976,7 @@ function TransactionsPage() {
                                                         children: "Note"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 332,
+                                                        lineNumber: 347,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -973,13 +990,13 @@ function TransactionsPage() {
                                                         className: "bg-neutral-800 border-card-border text-foreground"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 333,
+                                                        lineNumber: 348,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/transactions/page.tsx",
-                                                lineNumber: 331,
+                                                lineNumber: 346,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -993,7 +1010,7 @@ function TransactionsPage() {
                                                         children: "Cancel"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 343,
+                                                        lineNumber: 358,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -1002,51 +1019,51 @@ function TransactionsPage() {
                                                         children: "Add"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/transactions/page.tsx",
-                                                        lineNumber: 351,
+                                                        lineNumber: 366,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/transactions/page.tsx",
-                                                lineNumber: 342,
+                                                lineNumber: 357,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/transactions/page.tsx",
-                                        lineNumber: 277,
+                                        lineNumber: 292,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/transactions/page.tsx",
-                                lineNumber: 274,
+                                lineNumber: 289,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/transactions/page.tsx",
-                            lineNumber: 273,
+                            lineNumber: 288,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/transactions/page.tsx",
-                        lineNumber: 272,
+                        lineNumber: 287,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/transactions/page.tsx",
-                lineNumber: 191,
+                lineNumber: 201,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/transactions/page.tsx",
-        lineNumber: 154,
+        lineNumber: 164,
         columnNumber: 5
     }, this);
 }
-_s(TransactionsPage, "HN8+u/QPFkjglwhYRptAyzqDdqU=", false, function() {
+_s(TransactionsPage, "zVNfhf+pwl9P5cG6fID63RWDdBM=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSearchParams"]
